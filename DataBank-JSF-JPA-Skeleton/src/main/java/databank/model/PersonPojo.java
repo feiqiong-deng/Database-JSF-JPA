@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.faces.view.ViewScoped;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
@@ -39,6 +40,7 @@ import javax.persistence.Version;
  * working with.<br>done
  * TODO 20 - dates (LocalDateTime) should be mapped while editable is not to be mapped done
  */
+
 @Entity( name = "Person")
 @Table( name = "person", catalog = "databank", schema = "")
 @Access( AccessType.PROPERTY)
@@ -51,42 +53,22 @@ public class PersonPojo implements Serializable {
 	public static final String PERSON_FIND_ALL = "Person.findAll";
 	public static final String PERSON_FIND_ID = "Person.findById";
 
-	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	@Column( name = "id")
 	private int id;
-
-	@Column( name = "last_name")
 	private String lastName;
-	
-	@Column( name = "first_name")
 	private String firstName;
-
-	@Column( name = "email")
 	private String email;
-
-	@Column( name = "phone")
 	private String phoneNumber;
-
-	@Column( name = "city")
 	private String city;
-
-	@Column( name = "updated")
 	private LocalDateTime updated;
-
-	@Column( name = "created")
-	private LocalDateTime created;
-	
-	@Version
-	private int version = 1;
-
-	@Transient
+	private LocalDateTime created;	
+	private int version = 1;	
 	private boolean editable;
 
 	public PersonPojo() {
 		super();
 	}
 	
+	@Transient
 	public boolean getEditable() {
 		return editable;
 	}
@@ -94,6 +76,9 @@ public class PersonPojo implements Serializable {
 		this.editable = editable;
 	}
 
+	@Id
+	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@Column( name = "id")
 	public int getId() {
 		return id;
 	}
@@ -107,6 +92,7 @@ public class PersonPojo implements Serializable {
 	/**
 	 * @return the value for lastName
 	 */
+	@Column( name = "last_name")
 	public String getLastName() {
 		return lastName;
 	}
@@ -121,6 +107,7 @@ public class PersonPojo implements Serializable {
 	/**
 	 * @return the value for firstName
 	 */
+	@Column( name = "first_name")
 	public String getFirstName() {
 		return firstName;
 	}
@@ -132,19 +119,23 @@ public class PersonPojo implements Serializable {
 		this.firstName = firstName;
 	}
 
+	@Column( name = "email")
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail( String email) {
 		this.email = email;
 	}
-
+	
+	@Column( name = "phone")
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 	public void setPhoneNumber( String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	@Column( name = "city")
 	public String getCity() {
 		return city;
 	}
@@ -152,6 +143,7 @@ public class PersonPojo implements Serializable {
 		this.city = city;
 	}
 
+	@Column( name = "created")
 	public LocalDateTime getCreated() {
 		return created;
 	}
@@ -159,6 +151,7 @@ public class PersonPojo implements Serializable {
 		this.created = created;
 	}
 
+	@Column( name = "updated")
 	public LocalDateTime getUpdated() {
 		return updated;
 	}
@@ -166,6 +159,7 @@ public class PersonPojo implements Serializable {
 		this.updated = updated;
 	}
 
+	@Version
 	public int getVersion() {
 		return version;
 	}

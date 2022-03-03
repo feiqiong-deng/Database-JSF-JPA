@@ -10,14 +10,17 @@ package databank.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import databank.ejb.PersonService;
 import databank.model.PersonPojo;
 
 /**
@@ -37,49 +40,32 @@ public class PersonDaoImpl implements PersonDao, Serializable {
 	/** explicitly set serialVersionUID */
 	private static final long serialVersionUID = 1L;
 
-	//get the log4j2 logger for this class
-	private static final Logger LOG = LogManager.getLogger();
-
-	protected EntityManager em;
-
+	@EJB
+	protected PersonService personService;
+	
 	@Override
 	public List< PersonPojo> readAllPeople() {
-		LOG.debug( "reading all people");
-		//use the named JPQL query from the PersonPojo class to grab all the people
-		TypedQuery< PersonPojo> allPeopleQuery = em.createNamedQuery( PersonPojo.PERSON_FIND_ALL, PersonPojo.class);
-		//execute the query and return the result/s.
-		return allPeopleQuery.getResultList();
+		return personService.readAllPeople();
 	}
 
 	@Override
 	public PersonPojo createPerson( PersonPojo person) {
-		LOG.debug( "creating a person = {}", person);
-		em.something( person);
-		return person;
+		return personService.createPerson( person);
 	}
 
 	@Override
 	public PersonPojo readPersonById( int personId) {
-		LOG.debug( "read a specific person = {}", personId);
-		return em.something( PersonPojo.class, personId);
+		return personService.readPersonById(personId);
 	}
 
 	@Override
 	public PersonPojo updatePerson( PersonPojo personWithUpdates) {
-		LOG.debug( "updating a specific person = {}", personWithUpdates);
-		PersonPojo mergedPersonPojo = em.something( personWithUpdates);
-		return mergedPersonPojo;
+		return personService.updatePerson(personWithUpdates);
 	}
 
 	@Override
 	public void deletePersonById( int personId) {
-		LOG.debug( "deleting a specific personID = {}", personId);
-		PersonPojo person = readPersonById( personId);
-		LOG.debug( "deleting a specific person = {}", person);
-		if ( person != null) {
-			em.refresh( person);
-			em.remove( person);
-		}
+		personService.deletePersonById(personId);
 	}
 
 }
