@@ -37,7 +37,7 @@ import javax.persistence.Table;
  * working with.<br>
  * TODO 20 - dates (LocalDateTime) should be mapped while editable is not to be mapped
  */
-@Entity( name = "Person")
+@Entity( name = "")
 @Table( name = "person", catalog = "databank", schema = "")
 @Access( AccessType.PROPERTY)
 @NamedQuery( name = PersonPojo.PERSON_FIND_ALL, query = "SELECT a FROM Person a")
