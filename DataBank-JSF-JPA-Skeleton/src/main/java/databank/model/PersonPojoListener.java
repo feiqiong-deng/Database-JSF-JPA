@@ -9,6 +9,9 @@ package databank.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+
 /**
  * TODO 21 - What annotations should be used on these method.
  * https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/entity-listeners.html<br>
@@ -16,6 +19,7 @@ import java.time.LocalDateTime;
 public class PersonPojoListener {
 
 	//TODO 22 - called before persist to add the dates
+	@PrePersist
 	public void setCreatedOnDate( PersonPojo person) {
 		LocalDateTime now = LocalDateTime.now();
 		person.setCreated( now);
@@ -24,6 +28,7 @@ public class PersonPojoListener {
 	}
 
 	//TODO 23 - called before update to update the date
+	@PreUpdate
 	public void setUpdatedDate( PersonPojo person) {
 		person.setUpdated( LocalDateTime.now());
 	}

@@ -23,6 +23,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 
 /**
  * TODO 14.1 - complete the @Entity with correct name.<br> done
@@ -31,13 +33,13 @@ import javax.persistence.Table;
  * TODO 16 - fix the AccessType.<br> done
  * TODO 17 - make PersonPojoListener be the lister of this class. use:
  * https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/entity-listeners.html<br> done
- * TODO 18.1 - add the city field, add getter and setter, and update toString method to include the city field.<br>
- * TODO 18.2 - add the remaining @Basic and @Column to all the fields.<br>
+ * TODO 18.1 - add the city field, add getter and setter, and update toString method to include the city field.<br>done
+ * TODO 18.2 - add the remaining @Basic and @Column to all the fields.<br>done for column not basic
  * TODO 19 - Use @Version on the correct field. This annotation helps keeping track of what version of Entity we are
- * working with.<br>
- * TODO 20 - dates (LocalDateTime) should be mapped while editable is not to be mapped
+ * working with.<br>done
+ * TODO 20 - dates (LocalDateTime) should be mapped while editable is not to be mapped done
  */
-@Entity( name = "")
+@Entity( name = "Person")
 @Table( name = "person", catalog = "databank", schema = "")
 @Access( AccessType.PROPERTY)
 @NamedQuery( name = PersonPojo.PERSON_FIND_ALL, query = "SELECT a FROM Person a")
@@ -54,22 +56,31 @@ public class PersonPojo implements Serializable {
 	@Column( name = "id")
 	private int id;
 
+	@Column( name = "last_name")
 	private String lastName;
 	
+	@Column( name = "first_name")
 	private String firstName;
 
+	@Column( name = "email")
 	private String email;
 
+	@Column( name = "phone")
 	private String phoneNumber;
 
+	@Column( name = "city")
 	private String city;
 
+	@Column( name = "updated")
 	private LocalDateTime updated;
 
+	@Column( name = "created")
 	private LocalDateTime created;
-
+	
+	@Version
 	private int version = 1;
 
+	@Transient
 	private boolean editable;
 
 	public PersonPojo() {
