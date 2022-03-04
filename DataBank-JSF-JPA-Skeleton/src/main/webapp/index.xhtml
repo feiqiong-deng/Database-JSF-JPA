@@ -160,6 +160,7 @@
 								validatorMessage="#{uiconsts['enter_valid_string']}"
 								value="#{newPerson.lastName}"
 								a:placeholder="#{uiconsts['columnLabel_LastName']}">
+								<f:validateLength minimum = "1" maximum = "50" />
 								<!-- TODO validate using f:validateLength -->
 								
 							</h:inputText>
@@ -180,6 +181,7 @@
 								validatorMessage="#{uiconsts['enter_valid_string']}"
 								value="#{newPerson.firstName}"
 								a:placeholder="#{uiconsts['columnLabel_FirstName']}">
+								<f:validateLength minimum = "1"  maximum = "50" />						
 								<!-- TODO validate using f:validateLength -->
 								
 							</h:inputText>
@@ -200,6 +202,7 @@
 								validatorMessage="#{uiconsts['enter_valid_phonenumber']}"
 								value="#{newPerson.phoneNumber}"
 								a:placeholder="#{uiconsts['example_PhoneNumber']}">
+								<f:validator validatorId="phoneValidator" />
 								<!-- TODO validate using f:validator and using the phone validator class -->
 								
 							</h:inputText>
@@ -220,14 +223,33 @@
 								validatorMessage="#{uiconsts['enter_valid_email']}"
 								value="#{newPerson.email}"
 								a:placeholder="#{uiconsts['columnLabel_Email']}">
+								<f:validator validatorId="emailValidator" />								
 								<!-- TODO validate using f:validator and using the email validator class -->
 								
 							</h:inputText>
 						</h:panelGroup>
 						<!-- display any errors for email here -->
 						<h:message for="new_email" style="color:red" />
+		
 						<!-- TODO add a panel for city input -->
-
+						<h:panelGroup class="input-group">
+							<!-- separation with email icon -->
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="email-addon"><i
+									class="fas fa-envelope fa-fw" /></span>
+							</div>
+							<!-- input field for the email of a new person attached NewPersonView-->
+							<h:inputText type="text" id="new_city"
+								styleClass="form-control placeholder-darkgray"
+								aria-describedby="email-addon"
+								validatorMessage="#{uiconsts['enter_valid_string']}"
+								value="#{newPerson.city}"
+								a:placeholder="#{uiconsts['columnLabel_City']}">
+								<f:validateLength minimum = "1"  maximum = "50" />						
+							</h:inputText>
+						</h:panelGroup>
+						<h:message for="new_city" style="color:red" />
+						
 					</h:panelGrid>
 					<!-- submit and cancel buttons for adding new person -->
 					<h:panelGrid id="actions" columns="2" cellpadding="10">

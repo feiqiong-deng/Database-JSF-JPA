@@ -7,6 +7,7 @@
  */
 package databank.jsf;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
@@ -38,6 +39,13 @@ public class PhoneValidator implements Validator< String> {
 		//set the Severity of your FacesMessage to FacesMessage.SEVERITY_ERROR.
 		//Finally, throw an exception with the FacesMessage in it.
 		//to know what exception should be thrown, look at the signature of this method.
+		
+		Matcher matcher = PHONE_PATTERN.matcher(value);
+		if(!matcher.matches()) {
+			FacesMessage msg = new FacesMessage( "Phone Number is not valid", "Invalid Phone Number format.");
+			msg.setSeverity( FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException( msg);
+		}
 
 	}
 

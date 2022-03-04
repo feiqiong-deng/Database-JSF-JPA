@@ -139,7 +139,7 @@ public class PersonPojo implements Serializable {
 	public String getCity() {
 		return city;
 	}
-	public void setCityr( String city) {
+	public void setCity( String city) {
 		this.city = city;
 	}
 

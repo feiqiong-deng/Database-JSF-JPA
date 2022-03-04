@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 
 import databank.model.PersonPojo;
 
@@ -29,10 +33,14 @@ public class PersonService implements Serializable {
 	
 	public List< PersonPojo> readAllPeople() {
 		LOG.debug( "reading all people");
-		//use the named JPQL query from the PersonPojo class to grab all the people
+//		//use the named JPQL query from the PersonPojo class to grab all the people
 		TypedQuery< PersonPojo> allPeopleQuery = em.createNamedQuery( PersonPojo.PERSON_FIND_ALL, PersonPojo.class);
-		//execute the query and return the result/s.
+//		//execute the query and return the result/s.
 		return allPeopleQuery.getResultList();
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		CriteriaQuery< PersonPojo> cq = cb.createQuery( PersonPojo.class);
+//		cq.select( cq.from( PersonPojo.class));
+//		return em.createQuery( cq).getResultList();
 	}
 	
 	@Transactional

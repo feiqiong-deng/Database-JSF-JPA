@@ -7,6 +7,7 @@
  */
 package databank.jsf;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
@@ -24,7 +25,6 @@ public class EmailValidator implements Validator< String> {
 
 	@Override
 	public void validate( FacesContext context, UIComponent component, String value) throws ValidatorException {
-
 		if ( value == null) {
 			FacesMessage msg = new FacesMessage( "Email should not be empty", "Invalid Email format.");
 			msg.setSeverity( FacesMessage.SEVERITY_ERROR);
@@ -37,6 +37,14 @@ public class EmailValidator implements Validator< String> {
 		//set the Severity of your FacesMessage to FacesMessage.SEVERITY_ERROR.
 		//Finally, throw an exception with the FacesMessage in it.
 		//to know what exception should be thrown, look at the signature of this method.
+
+		Matcher matcher = EMAIL_PATTERN.matcher(value);
+		if(!matcher.matches()) {
+			FacesMessage msg = new FacesMessage( "Email is not valid", "Invalid Email format.");
+			msg.setSeverity( FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException( msg);
+		}		  
+
 	}
 
 }
