@@ -232,22 +232,22 @@
 						<h:message for="new_email" style="color:red" />
 		
 						<!-- TODO add a panel for city input -->
-						<h:panelGroup class="input-group">
-							<!-- separation with email icon -->
+							<h:panelGroup class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="email-addon"><i
+								<span class="input-group-text" id="city-addon"><i
 									class="fas fa-envelope fa-fw" /></span>
 							</div>
 							<!-- input field for the email of a new person attached NewPersonView-->
 							<h:inputText type="text" id="new_city"
 								styleClass="form-control placeholder-darkgray"
-								aria-describedby="email-addon"
+								aria-describedby="city-addon"
 								validatorMessage="#{uiconsts['enter_valid_string']}"
 								value="#{newPerson.city}"
 								a:placeholder="#{uiconsts['columnLabel_City']}">
 								<f:validateLength minimum = "1"  maximum = "50" />						
 							</h:inputText>
 						</h:panelGroup>
+						
 						<h:message for="new_city" style="color:red" />
 						
 					</h:panelGrid>
@@ -293,6 +293,8 @@
 						<h:inputText id="lastName_editable"
 							validatorMessage="#{uiconsts['enter_valid_string']}"
 							value="#{person.lastName}" rendered="#{person.editable}">
+							<f:validateLength minimum = "1"  maximum = "50" />						
+							
 							<!-- TODO validate using f:validateLength -->
 							
 						</h:inputText>
@@ -311,6 +313,7 @@
 						<h:inputText id="firstName_editable"
 							validatorMessage="#{uiconsts['enter_valid_string']}"
 							value="#{person.firstName}" rendered="#{person.editable}">
+							<f:validateLength minimum = "1"  maximum = "50" />										
 							<!-- TODO validate using f:validateLength -->
 							
 						</h:inputText>
@@ -329,6 +332,7 @@
 						<h:inputText id="phoneNumber_editable"
 							validatorMessage="#{uiconsts['enter_valid_phonenumber']}"
 							value="#{person.phoneNumber}" rendered="#{person.editable}">
+							<f:validator validatorId="phoneValidator" />	
 							<!-- TODO validate using f:validator and using the phone validator class -->
 							
 						</h:inputText>
@@ -347,6 +351,7 @@
 						<h:inputText id="email_editable"
 							validatorMessage="#{uiconsts['enter_valid_email']}"
 							value="#{person.email}" rendered="#{person.editable}">
+							<f:validator validatorId="emailValidator" />			
 							<!-- TODO validate using f:validator and using the email validator class -->
 							
 						</h:inputText>
@@ -356,7 +361,24 @@
 							style="color:red" />
 					</h:column>
 					<!-- TODO add a column for the city field -->
-
+					<h:column>
+						<!-- Column name -->
+						<f:facet name="header">#{uiconsts['columnLabel_City']}</f:facet>
+						<!-- cell table content, only visible if person is not in an editable state-->
+						<h:outputText value="#{person.city}"
+							rendered="#{not person.editable}" />
+						<!-- input for editing a field of person, only visible if person is in an editable state-->
+						<h:inputText id="city_editable"
+							validatorMessage="#{uiconsts['enter_valid_string']}"
+							value="#{person.city}" rendered="#{person.editable}">
+							<f:validateLength minimum = "1"  maximum = "50" />																	
+						</h:inputText>
+						<br />
+						<!-- if validation fails display text here -->
+						<h:message for="city_editable" class="validator-message"
+							style="color:red" />
+					</h:column>
+					
 					<!-- Action column -->
 					<h:column>
 						<!-- column name -->
@@ -438,7 +460,7 @@
 						<h:panelGroup class="refreshFooter">
 							<!-- TODO - fix method call -->
 							<h:commandButton value="#{uiconsts['refreshButtonLabel']}"
-								action="#{personController.doSomething()}" />
+								action="#{personController.refreshPersonForm()}" />
 						</h:panelGroup>
 					</f:facet>
 				</h:dataTable>
