@@ -142,8 +142,7 @@ public class NewPersonView implements Serializable {
 	
 
 	public void addPerson() {
-		if ( allNotNullOrEmpty(id, firstName, lastName, email, phoneNumber,city, created, updated,
-				version, editable/* TODO 11 - don't forget the other variables */)) {
+		if ( allNotNullOrEmpty( firstName, lastName, email, phoneNumber,city/* TODO 11 - don't forget the other variables */)) {
 			PersonPojo theNewPerson = new PersonPojo();
 			theNewPerson.setFirstName( getFirstName());
 			theNewPerson.setLastName( getLastName());
@@ -152,9 +151,9 @@ public class NewPersonView implements Serializable {
 			theNewPerson.setCity( getCity());
 			theNewPerson.setCreated(LocalDateTime.ofInstant(Instant.now(), ZoneId.of("America/New_York")));
 			theNewPerson.setUpdated(LocalDateTime.ofInstant(Instant.now(), ZoneId.of("America/New_York")));
-			theNewPerson.setVersion(1);
-			theNewPerson.setEditable(true);
+			theNewPerson.setVersion(version);
 			//TODO 12 - call other setters
+
 			personController.addNewPerson( theNewPerson);
 			//clean up
 			personController.toggleAdding();

@@ -232,13 +232,12 @@
 						<h:message for="new_email" style="color:red" />
 		
 						<!-- TODO add a panel for city input -->
-							<h:panelGroup class="input-group">
+						<h:panelGroup class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="city-addon"><i
-									class="fas fa-envelope fa-fw" /></span>
+									class="fas fa-home fa-fw" /></span>
 							</div>
-							<!-- input field for the email of a new person attached NewPersonView-->
-							<h:inputText type="text" id="new_city"
+							<h:inputText type="text" id="new_city" 
 								styleClass="form-control placeholder-darkgray"
 								aria-describedby="city-addon"
 								validatorMessage="#{uiconsts['enter_valid_string']}"
@@ -246,10 +245,9 @@
 								a:placeholder="#{uiconsts['columnLabel_City']}">
 								<f:validateLength minimum = "1"  maximum = "50" />						
 							</h:inputText>
-						</h:panelGroup>
-						
+						</h:panelGroup>																
 						<h:message for="new_city" style="color:red" />
-						
+					
 					</h:panelGrid>
 					<!-- submit and cancel buttons for adding new person -->
 					<h:panelGrid id="actions" columns="2" cellpadding="10">
