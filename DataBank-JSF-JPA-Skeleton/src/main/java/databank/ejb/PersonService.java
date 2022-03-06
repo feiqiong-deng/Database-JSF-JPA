@@ -58,8 +58,14 @@ public class PersonService implements Serializable {
 	@Transactional
 	public PersonPojo updatePerson( PersonPojo personWithUpdates) {
 		LOG.debug( "updating a specific person = {}", personWithUpdates);
-		PersonPojo mergedPersonPojo = em.merge( personWithUpdates);
-		return mergedPersonPojo;
+		
+		try {
+			PersonPojo mergedPersonPojo = em.merge( personWithUpdates);
+			return mergedPersonPojo;
+		} catch(Exception e) {
+			e.getStackTrace();
+			return null;
+		}
 	}
 
 	@Transactional
